@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: BSCScan API
+  description: Description in [BSCScan API](https://github.com/quanttb/bscscan-api).
+  version: 0.0.1
+  contact:
+    email: tranthienbaoquan@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.htm
+tags:
+  - name: bscscan
+    description: Everything about BSC network
+    externalDocs:
+      description: Find out more
+      url: https://bscscan.com/
+paths:
+  /block/{blockId}:
+    get:
+      tags:
+        - bsc
+      summary: Returns block by block number.
+      parameters:
+        - name: blockId
+          in: path
+          required: true
+          description: Block number of query block
+          schema:
+            type: number
+      responses:
+        '200':
+          description: Queried block
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/BlockResponseModel'
+        '500':
+          description: Unexpected error.
+components:
+  schemas:
+    BlockResponseModel:
+      properties:
+        difficulty:
+          type: string
+        extraData:
+          type: string
+        gasLimit:
+          type: number
+        gasUsed:
+          type: number
+        hash:
+          type: string
+        logsBloom:
+          type: string
+        miner:
+          type: string
+        mixHash:
+          type: string
+        nonce:
+          type: string
+        number:
+          type: number
+        parentHash:
+          type: string
+        receiptsRoot:
+          type: string
+        sha3Uncles:
+          type: string
+        size:
+          type: number
+        stateRoot:
+          type: string
+        timestamp:
+          type: number
+        totalDifficulty:
+          type: string
+        transactions:
+          type: string
+        transactionsRoot:
+          type: string
+        uncles:
+          type: string
+      required:
+        - difficulty
+        - extraData
+        - gasUsed
+        - gasLimit
+        - hash
+        - logsBloom
+        - miner
+        - mixHash
+        - nonce
+        - number
+        - parentHash
+        - receiptsRoot
+        - sha3Uncles
+        - size
+        - stateRoot
+        - timestamp
+        - totalDifficulty
+        - transactions
+        - transactionsRoot
+        - uncles
