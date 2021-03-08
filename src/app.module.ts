@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
-import { HealthzModule } from './healthz/healthz.module';
+import { ConfigModule } from '@nestjs/config';
+import { BlockModule } from './modules/block/block.module';
+import { HealthzModule } from './modules/healthz/healthz.module';
 
 @Module({
-  imports: [HealthzModule],
+  imports: [ConfigModule.forRoot(), HealthzModule, BlockModule],
 })
 export class AppModule {}
