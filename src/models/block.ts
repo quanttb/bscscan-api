@@ -1,3 +1,5 @@
+import { Transaction } from './transaction';
+
 export interface Block {
   difficulty: string;
   extraData: string;
@@ -16,7 +18,7 @@ export interface Block {
   stateRoot: string;
   timestamp: number;
   totalDifficulty: string;
-  // transactions: string;
+  transactions: Transaction[];
   transactionsRoot: string;
-  // uncles: string;
+  uncles: string[];
 }

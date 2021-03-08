@@ -10,16 +10,16 @@ export class BlockService {
 
   async getBlock(blockId: number): Promise<BlockResponseModel> {
     try {
+      const block: Block = await getBlock(blockId);
       const blockResponse: BlockResponseModel = {
-        ...(await getBlock(blockId)),
-        transactions: '',
-        uncles: '',
+        ...block,
+        transactionCount: block.transactions.length,
       };
 
       return blockResponse;
     } catch (err) {
       throw new HttpException(
-        'Internal Server Error',
+        'Unexpected error.',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

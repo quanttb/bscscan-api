@@ -1,10 +1,9 @@
 require('dotenv/config');
 
-import { Block } from 'src/models/models';
+import { Block, Transaction } from 'src/models/models';
 
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 const Web3 = require('web3');
-const fs = require('fs');
 
 const provider = new HDWalletProvider(
   process.env.MNEMONIC,
@@ -19,9 +18,13 @@ export async function getLastBlockNumber(): Promise<number> {
 export async function getBlock(blockId: number): Promise<Block> {
   const block = await web3.eth.getBlock(blockId, true);
 
-  const returnBlock: Block = {
-    ...block,
-  };
+  return block;
+}
 
-  return returnBlock;
+export async function getTransaction(
+  transactionHash: string,
+): Promise<Transaction> {
+  const transaction = await web3.eth.getTransaction(transactionHash, true);
+
+  return transaction;
 }

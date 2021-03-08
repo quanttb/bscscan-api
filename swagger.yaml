@@ -9,8 +9,13 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.htm
 tags:
-  - name: bscscan
-    description: Everything about BSC network
+  - name: Block
+    description: Everything about Block
+    externalDocs:
+      description: Find out more
+      url: https://bscscan.com/
+  - name: Transaction
+    description: Everything about Transaction
     externalDocs:
       description: Find out more
       url: https://bscscan.com/
@@ -18,7 +23,7 @@ paths:
   /block/{blockId}:
     get:
       tags:
-        - bsc
+        - Block
       summary: Returns block by block number.
       parameters:
         - name: blockId
@@ -35,6 +40,28 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/BlockResponseModel'
+        '500':
+          description: Unexpected error.
+  /transaction/{transactionHash}:
+    get:
+      tags:
+        - Transaction
+      summary: Returns transaction by transaction hash.
+      parameters:
+        - name: transactionHash
+          in: path
+          required: true
+          description: Transaction hash of query transaction
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Queried transaction
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/TransactionResponseModel'
         '500':
           description: Unexpected error.
 components:
@@ -75,12 +102,14 @@ components:
           type: number
         totalDifficulty:
           type: string
-        transactions:
-          type: string
+        transactionCount:
+          type: number
+        # transactions:
+        #   type: string
         transactionsRoot:
           type: string
-        uncles:
-          type: string
+        # uncles:
+        #   type: string
       required:
         - difficulty
         - extraData
@@ -99,6 +128,49 @@ components:
         - stateRoot
         - timestamp
         - totalDifficulty
-        - transactions
+        - transactionCount
+        # - transactions
         - transactionsRoot
-        - uncles
+        # - uncles
+    TransactionResponseModel:
+      properties:
+        blockHash:
+          type: number
+        from:
+          type: string
+        gas:
+          type: number
+        gasPrice:
+          type: string
+        hash:
+          type: string
+        input:
+          type: string
+        nonce:
+          type: number
+        r:
+          type: string
+        s:
+          type: string
+        to:
+          type: string
+        transactionIndex:
+          type: number
+        v:
+          type: string
+        value:
+          type: string
+      required:
+        - blockHash
+        - from
+        - gas
+        - gasPrice
+        - hash
+        - input
+        - nonce
+        - r
+        - s
+        - to
+        - transactionIndex
+        - v
+        - value

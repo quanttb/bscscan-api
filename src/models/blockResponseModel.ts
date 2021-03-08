@@ -28,7 +28,6 @@ export interface BlockResponseModel {
     stateRoot: string;
     timestamp: number;
     totalDifficulty: string;
-    transactions: string;
+    transactionCount: number;
     transactionsRoot: string;
-    uncles: string;
 }
